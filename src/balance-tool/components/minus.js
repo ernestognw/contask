@@ -5,14 +5,11 @@ function Minus(props) {
   return (
     <button
       className="btn btn-danger btn-rounded"
-      title={props.name}
-      data-id={props.id}
+      row={props.id}
       onClick={props.handleMinusClick}
     >
       <i
-        title={props.name}
-        data-id={props.id}
-        title={props.name}
+        row={props.id}
         className="fa fa-times"
       />
     </button>

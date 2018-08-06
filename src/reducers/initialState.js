@@ -5,41 +5,41 @@ const initialState = {
       initial: '',
       debt: '',
       credit: '',
-      final: '',
+      final: '0.00',
     },
     { 
       account: '110100000',
       initial: '',
       debt: '',
       credit: '',
-      final: '',
+      final: '0.00',
     },
     { 
       account: '110100000',
       initial: '',
       debt: '',
       credit: '',
-      final: '',
+      final: '0.00',
     },
     { 
       account: '110100000',
       initial: '',
       debt: '',
       credit: '',
-      final: '',
+      final: '0.00',
     },
     { 
       account: '110100000',
       initial: '',
       debt: '',
       credit: '',
-      final: '',
+      final: '0.00',
     }
   ],
-  debtorsTotal: '0.00',
-  creditorsTotal: '0.00',
   isBalanced: true,
   XML_file: '',
+  debtTotal: '',
+  creditTotal: '',
 };
 
 export default initialState;

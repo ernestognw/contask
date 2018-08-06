@@ -7,26 +7,25 @@ import Accounts from "../components/accounts";
 
 class BalanceTool extends Component {
   handleMinusClick = event => {
-    this.props.actions.minusClick(event.target);
+    this.props.actions.minusClick(event.target.getAttribute('row'));
   };
 
   handlePlusClick = event => {
-    this.props.actions.plusClick(event.target.title);
+    this.props.actions.plusClick();
   };
 
-  handleSelectChange = event => {
+  handleSelectChange = event => { 
     this.props.actions.selectChange(
       event.target.value,
-      event.target.name,
-      event.target.title
+      event.target.getAttribute('row'),
     );
-  };
+  }; 
 
   handleInputChange = event => {
     this.props.actions.inputChange(
       event.target.value,
       event.target.name,
-      event.target.title
+      event.target.getAttribute('row')
     );
   };
 
@@ -44,7 +43,6 @@ class BalanceTool extends Component {
           <div className="row">
             <Accounts 
               // General
-              name="debtors" // done
               title="Listado de Cuentas" //done
               // Functions
               handleMinusClick={this.handleMinusClick} //done
@@ -52,25 +50,12 @@ class BalanceTool extends Component {
               handleSelectChange={this.handleSelectChange} //done
               handleInputChange={this.handleInputChange} //done
               // State
-              registros={this.props.rows} //done            
-              totalMoney={this.props.debtorsTotal}
+              registros={this.props.rows} //done  
+
               isBalanced={this.props.isBalanced}
+              debtTotal={this.props.debtTotal}
+              creditTotal={this.props.creditTotal}
             />
-            {/* <div className="col-md-12 text-center">
-              <button
-                className="btn btn-success btn-lg"
-                onClick={this.handleSubmit}
-              >
-                <b>Obtener XML</b>
-              </button>
-            </div>
-            <div className="col-md-12">
-              <textarea
-                className="form-control"
-                rows="15"
-                value={this.props.XML_file}
-              />
-            </div> */}
           </div>
         </div>
       </div>
@@ -82,10 +67,10 @@ class BalanceTool extends Component {
 function mapStateToProps(state, props) {
   return {
     rows: state.rows,
-    debtorsTotal: state.debtorsTotal,
-    creditorsTotal: state.creditorsTotal,
     isBalanced: state.isBalanced,
-    XML_file: state.XML_file
+    XML_file: state.XML_file,
+    debtTotal: state.debtTotal,
+    creditTotal: state.creditTotal,
   };
 }
 

@@ -1,0 +1,27 @@
+.col-md-3, .col-md-2, .col-md-1 {
+  padding-right: 0px;
+  padding-left: 1%;
+}
+
+.col-md-5 {
+  margin-bottom: 20px;
+}
+
+.col-md-1 {
+  padding-left: 0px;
+}
+
+.alert {
+  padding: 5px;
+  margin-bottom: 0px;
+}
+
+p {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+i {
+  font-size: 13px;
+}

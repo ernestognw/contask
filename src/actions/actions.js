@@ -20,21 +20,22 @@ export function plusClick(account) {
   return {
     type: ADD_ROW,
     payload: {
-      account,
       newRow: {
-        account: "Bancos",
-        quantity: ""
+        account: '110100000',
+        initial: '',
+        debt: '',
+        credit: '',
+        final: '0.00',
       }
     }
   }
 }
 
-export function selectChange(value, name, id) {
+export function selectChange(value, id) {
   return {
     type: SELECT_CHANGE,
     payload: {
       value,
-      name,
       id
     }
   }

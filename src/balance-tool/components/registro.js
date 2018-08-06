@@ -7,41 +7,40 @@ function Registro (props) {
   return (
     <div className="row">
       <div className="col-md-3">
-       <AccountList />
+       <AccountList
+        id={props.id}
+        value={props.value}
+        handleSelectChange={props.handleSelectChange}
+       />
       </div>
       <div className="col-md-2">
-        <MoneyInput
-          isBalanced                
+        <MoneyInput             
           handleInputChange={props.handleInputChange}
-          name={props.name}
           id={props.id}
+          column="initial"
           quantity={props.initial}
         />
       </div>
       <div className="col-md-2">
-        <MoneyInput
-          isBalanced                
+        <MoneyInput              
           handleInputChange={props.handleInputChange}
-          name={props.name}
+          column="debt"          
           id={props.id}
           quantity={props.debt}
         />
       </div>
       <div className="col-md-2">
-        <MoneyInput
-          isBalanced                
+        <MoneyInput              
           handleInputChange={props.handleInputChange}
-          name={props.name}
+          column="credit"          
           id={props.id}
           quantity={props.credit}
         />
       </div>
       <div className="col-md-2">
         <MoneyInput
-          isBalanced
           disabled                
-          handleInputChange={props.handleInputChange}
-          name={props.name}
+          column="final"          
           id={props.id}
           quantity={props.final}
         />
@@ -50,7 +49,6 @@ function Registro (props) {
         <Minus 
           handleMinusClick={props.handleMinusClick}
           id={props.id}
-          name={props.name}
         />
       </div>
       <hr/>

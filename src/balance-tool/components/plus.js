@@ -6,9 +6,8 @@ function Plus (props) {
     <button 
       className="btn btn-success btn-rounded"
       onClick={props.handlePlusClick}      
-      title={props.name}
     >
-      <i title={props.name} className="fa fa-plus"></i>
+      <i className="fa fa-plus"></i>
     </button>
   )
 }
