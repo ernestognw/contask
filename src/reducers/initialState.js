@@ -1,41 +1,44 @@
+import accountList from './initialState/account-list.js';
+
 const initialState = {
   rows: [
     { 
-      account: '110100000',
+      account: '',
       initial: '',
       debt: '',
       credit: '',
-      final: '0.00',
+      final: '00.00',
     },
     { 
-      account: '110100000',
+      account: '',
       initial: '',
       debt: '',
       credit: '',
-      final: '0.00',
+      final: '00.00',
     },
     { 
-      account: '110100000',
+      account: '',
       initial: '',
       debt: '',
       credit: '',
-      final: '0.00',
+      final: '00.00',
     },
     { 
-      account: '110100000',
+      account: '',
       initial: '',
       debt: '',
       credit: '',
-      final: '0.00',
+      final: '00.00',
     },
     { 
-      account: '110100000',
+      account: '',
       initial: '',
       debt: '',
       credit: '',
-      final: '0.00',
+      final: '00.00',
     }
   ],
+  accountsList: accountList,
   isBalanced: true,
   XML_file: '',
   debtTotal: '',

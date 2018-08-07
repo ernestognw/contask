@@ -4,7 +4,7 @@ import "./minus.css";
 function Minus(props) {
   return (
     <button
-      className="btn btn-danger btn-rounded"
+      className="btn btn-danger"
       row={props.id}
       onClick={props.handleMinusClick}
     >

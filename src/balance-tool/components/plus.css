@@ -1,3 +1,7 @@
-.btn-success.btn-rounded {
-  width: 70%
+.btn.btn-success {
+  width: 70%;
+}
+
+.col-md-5 {
+  padding: 0px;  
 }

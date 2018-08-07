@@ -21,7 +21,7 @@ export function plusClick(account) {
     type: ADD_ROW,
     payload: {
       newRow: {
-        account: '110100000',
+        account: '',
         initial: '',
         debt: '',
         credit: '',

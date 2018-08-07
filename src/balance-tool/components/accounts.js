@@ -22,10 +22,11 @@ function Accounts(props) {
                 credit={item.credit} //done
                 final={item.final} //done
                 key={index} //done
-                id={index} //done
+                id={index} //done         
                 handleMinusClick={props.handleMinusClick} //done
                 handleSelectChange={props.handleSelectChange} // done
                 handleInputChange={props.handleInputChange} //done
+                accountsList={props.accountsList}
               />
             );
           })}
