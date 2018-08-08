@@ -16,7 +16,8 @@ function Registro (props) {
        />
       </div>
       <div className="col-md-2">
-        <MoneyInput     
+        <MoneyInput 
+          prefix="Inicial"    
           disabled={props.value == '' ? true : false}                              
           handleInputChange={props.handleInputChange}
           id={props.id}
@@ -25,7 +26,8 @@ function Registro (props) {
         />
       </div>
       <div className="col-md-2">
-        <MoneyInput             
+        <MoneyInput   
+          prefix="Deber"                        
           disabled={props.value == '' ? true : false}                       
           handleInputChange={props.handleInputChange}
           column="debt"          
@@ -35,6 +37,7 @@ function Registro (props) {
       </div>
       <div className="col-md-2">
         <MoneyInput  
+          prefix="Haber"                                
           disabled={props.value == '' ? true : false}            
           handleInputChange={props.handleInputChange}
           column="credit"          
@@ -44,6 +47,7 @@ function Registro (props) {
       </div>
       <div className="col-md-2">
         <MoneyInput
+          prefix="Final"                                        
           disabled                
           column="final"          
           id={props.id}

@@ -3,6 +3,7 @@ import "./accounts.css";
 import Registro from "./registro";
 import Plus from "./plus";
 import MoneyInput from "./money-input";
+import InputDescriptions from "./input-descriptions";
 // import MoneyTotal from "./money-total";
 
 function Accounts(props) {
@@ -13,6 +14,7 @@ function Accounts(props) {
           <h4>{props.title}</h4>
         </div>
         <div className="panel-body">
+        <InputDescriptions />        
           {props.registros.map((item, index) => {
             return (
               <Registro
@@ -36,6 +38,7 @@ function Accounts(props) {
             </div>
             <div className="col-md-2">
               <MoneyInput 
+                prefix="Total"
                 disabled
                 column="debtors"
                 quantity={props.debtTotal}
@@ -43,6 +46,7 @@ function Accounts(props) {
             </div>
             <div className="col-md-2">
               <MoneyInput
+                prefix="Total"              
                 disabled
                 column="creditors"
                 quantity={props.creditTotal}
