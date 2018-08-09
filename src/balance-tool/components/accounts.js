@@ -54,12 +54,12 @@ function Accounts(props) {
             </div>
             <div className="col-md-2">
               { props.isBalanced ?
-                <div className="alert alert-success" role="alert">
+                <div className="alert alert-success notification-adjusted" role="alert">
                   <i className="fa fa-check"></i>
                   <p>Balanceado</p>                
                 </div>
                 :
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger notification-adjusted" role="alert">
                   <i className="fa fa-times"></i>
                   <p>Error</p>                
                 </div>

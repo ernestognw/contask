@@ -66,6 +66,7 @@ class BalanceTool extends Component {
         />
         <XMLModal 
           XML_file={this.props.XML_file}
+          isAny={this.props.isAny}
         />
       </div>
     );
@@ -79,7 +80,8 @@ function mapStateToProps(state, props) {
     XML_file: state.XML_file,
     debtTotal: state.debtTotal,
     creditTotal: state.creditTotal,
-    accountsList: state.accountsList,    
+    accountsList: state.accountsList,
+    isAny: state.isAny    
   };
 }
 

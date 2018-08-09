@@ -22,8 +22,8 @@ function accounts (state = [], action) {
     case SELECT_CHANGE:
       state.rows[action.payload.id].account = action.payload.value;
 
-      updateCreditTotal(state, action.payload.value == '' ? true : false, action.payload.id);
-      updateDebtTotal(state, action.payload.value == '' ? true : false, action.payload.id);
+      updateCreditTotal(state, action.payload.value === '' ? true : false, action.payload.id);
+      updateDebtTotal(state, action.payload.value === '' ? true : false, action.payload.id);
       updateAvailableAccounts(state);
 
       return {
@@ -65,12 +65,14 @@ function accounts (state = [], action) {
 
     case GET_XML:
       let XMLString='';
+      let isAny = false;
 
       state.rows.map(row => {
-        if (row.account != '') {
-          XMLString += `<BCE:Ctas NumCta="${row.account.toString()}" SaldoIni="${row.initial.toString()}" Debe="${row.debt.toString()}" Haber="${row.credit.toString()}" SaldoFin="${row.final.toString()}" />
-`
-        }                               
+        if (row.account !== '') {
+          XMLString += `<BCE:Ctas NumCta="${row.account.toString()}" SaldoIni="${row.initial.toString()}" Debe="${row.debt.toString()}" Haber="${row.credit.toString()}" SaldoFin="${row.final.toString()}" />`;
+          isAny = true;
+        }
+        return true;
       })
 
       XMLString+='</BCE:Balanza>'
@@ -78,8 +80,8 @@ function accounts (state = [], action) {
       return {
         ...state,
         XML_file: XMLString,
+        isAny: isAny,
       }
-    break;
 
     default: 
       return state;
@@ -121,7 +123,7 @@ function updateCreditTotal(state, hasDiscount, discountId) {
 function updateAvailableAccounts(state){
   for(let listItem = 0; listItem < state.accountsList.length; listItem++) {
     for (let row = 0; row < state.rows.length; row++){
-      if (state.accountsList[listItem].value == state.rows[row].account) {
+      if (state.accountsList[listItem].value === state.rows[row].account) {
         state.accountsList[listItem].selected = true;
         break;
       } else {

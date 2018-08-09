@@ -5,7 +5,7 @@ function Header(props) {
   return (
     <div className="page-header">
       <div className="search-form">
-        <form action="#" method="GET">
+        <form action="/" method="GET">
           <div className="input-group">
             <input
               type="text"
@@ -14,7 +14,11 @@ function Header(props) {
               placeholder="Type something..."
             />
             <span className="input-group-btn">
-              <button className="btn btn-default" id="close-search" type="button">
+              <button
+                className="btn btn-default"
+                id="close-search"
+                type="button"
+              >
                 <i className="icon-close" />
               </button>
             </span>
@@ -25,18 +29,21 @@ function Header(props) {
         <div className="container-fluid">
           <div className="navbar-header">
             <div className="logo-sm">
-              <a href="javascript:void(0)" id="sidebar-toggle-button">
+              <a id="sidebar-toggle-button">
                 <i className="fa fa-bars" />
               </a>
               <a className="logo-box" href="index.html">
-                <span>Space</span>
+                <img className="logo-image" src="images/isotype.png" alt="isotype" />
+                <span>
+                  <img className="logo-image" src="images/logotype.png" alt="logotype" />
+                </span>
               </a>
             </div>
             <button
               type="button"
               className="navbar-toggle collapsed"
               data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
+              data-target="/bs-example-navbar-collapse-1"
               aria-expanded="false"
             >
               <i className="fa fa-angle-down" />
@@ -50,19 +57,18 @@ function Header(props) {
             <ul className="nav navbar-nav">
               <li>
                 <a
-                  href="javascript:void(0)"
                   id="collapsed-sidebar-toggle-button"
                 >
                   <i className="fa fa-bars" />
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" id="toggle-fullscreen">
+                <a id="toggle-fullscreen">
                   <i className="fa fa-expand" />
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)" id="search-button">
+                <a id="search-button">
                   <i className="fa fa-search" />
                 </a>
               </li>
@@ -70,7 +76,6 @@ function Header(props) {
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a
-                  href="javascript:void(0)"
                   className="right-sidebar-toggle"
                   data-sidebar-id="main-right-sidebar"
                 >
@@ -79,7 +84,7 @@ function Header(props) {
               </li>
               <li className="dropdown">
                 <a
-                  href="javascript:void(0)"
+                
                   className="dropdown-toggle"
                   data-toggle="dropdown"
                   role="button"
@@ -90,7 +95,7 @@ function Header(props) {
                 </a>
                 <ul className="dropdown-menu dropdown-lg dropdown-content">
                   <li className="drop-title">
-                    Notifications<a href="#" className="drop-title-link">
+                    Notifications<a href="/" className="drop-title-link">
                       <i className="fa fa-angle-right" />
                     </a>
                   </li>
@@ -98,7 +103,7 @@ function Header(props) {
                     <li className="slimscroll dropdown-notifications notification">
                       <ul className="list-unstyled dropdown-oc">
                         <li>
-                          <a href="#">
+                          <a href="/">
                             <span className="notification-badge bg-primary">
                               <i className="fa fa-photo" />
                             </span>
@@ -110,7 +115,7 @@ function Header(props) {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="/">
                             <span className="notification-badge bg-primary">
                               <i className="fa fa-at" />
                             </span>
@@ -122,25 +127,29 @@ function Header(props) {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="/">
                             <span className="notification-badge bg-danger">
                               <i className="fa fa-bolt" />
                             </span>
                             <span className="notification-info">
                               4 new special offers from the apps you follow!
-                              <small className="notification-date">Yesterday</small>
+                              <small className="notification-date">
+                                Yesterday
+                              </small>
                             </span>
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="/">
                             <span className="notification-badge bg-success">
                               <i className="fa fa-bullhorn" />
                             </span>
                             <span className="notification-info">
                               There is a meeting with <b>Ethan</b> in 15
                               minutes!
-                              <small className="notification-date">Yesterday</small>
+                              <small className="notification-date">
+                                Yesterday
+                              </small>
                             </span>
                           </a>
                         </li>
@@ -153,7 +162,7 @@ function Header(props) {
               </li>
               <li className="dropdown user-dropdown">
                 <a
-                  href="#"
+                  href="/"
                   className="dropdown-toggle"
                   data-toggle="dropdown"
                   role="button"
@@ -168,22 +177,22 @@ function Header(props) {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a href="#">Profile</a>
+                    <a href="/">Profile</a>
                   </li>
                   <li>
-                    <a href="#">Calendar</a>
+                    <a href="/">Calendar</a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="/">
                       <span className="badge pull-right badge-danger">42</span>Messages
                     </a>
                   </li>
                   <li role="separator" className="divider" />
                   <li>
-                    <a href="#">Account Settings</a>
+                    <a href="/">Account Settings</a>
                   </li>
                   <li>
-                    <a href="#">Log Out</a>
+                    <a href="/">Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -191,6 +200,21 @@ function Header(props) {
           </div>
         </div>
       </nav>
+      {
+        props.show ? 
+        <div className="alert alert-warning alert-dismissible" role="alert">
+        <button
+          onClick={props.showNotif}
+          type="button"
+          className="close"
+          action="close"
+        >
+          <span aria-hidden="true" action="close">×</span>
+        </button>
+        ¡Alto ahí vaquero! Esta funcionalidad aún no está lista, pero estamos trabajando en ella.
+      </div> :
+      <div></div>
+      }
     </div>
   );
 }
