@@ -24,15 +24,16 @@ class BalanceTool extends Component {
   }; 
 
   handleInputChange = event => {
+    console.log(event.target.getAttribute('row'))
     this.props.actions.inputChange(
       event.target.value,
       event.target.name,
-      event.target.getAttribute('row')
+      event.target.getAttribute('row'),
     );
   };
 
   handleSubmit = event => {
-    this.props.actions.getXML();
+    this.props.actions.checkEmpty();
   };
 
   render() {
@@ -65,8 +66,12 @@ class BalanceTool extends Component {
           handleSubmit={this.handleSubmit}
         />
         <XMLModal 
-          XML_file={this.props.XML_file}
+          XMLString={this.props.XMLString}
           isAny={this.props.isAny}
+          href={this.props.href}
+          filename={this.props.filename}
+          handleInputChange={this.handleInputChange}
+          validDownload={this.props.validDownload}
         />
       </div>
     );
@@ -75,13 +80,7 @@ class BalanceTool extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    rows: state.rows,
-    isBalanced: state.isBalanced,
-    XML_file: state.XML_file,
-    debtTotal: state.debtTotal,
-    creditTotal: state.creditTotal,
-    accountsList: state.accountsList,
-    isAny: state.isAny    
+    ...state   
   };
 }
 

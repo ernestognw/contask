@@ -201,8 +201,7 @@ function Header(props) {
         </div>
       </nav>
       {
-        props.show ? 
-        <div className="alert alert-warning alert-dismissible" role="alert">
+        <div className={!props.show ? 'alert alert-warning alert-dismissible fade' : 'alert alert-warning alert-dismissible fade in'} role="alert">
         <button
           onClick={props.showNotif}
           type="button"
@@ -212,8 +211,7 @@ function Header(props) {
           <span aria-hidden="true" action="close">×</span>
         </button>
         ¡Alto ahí vaquero! Esta funcionalidad aún no está lista, pero estamos trabajando en ella.
-      </div> :
-      <div></div>
+      </div>
       }
     </div>
   );

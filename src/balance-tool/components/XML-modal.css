@@ -1,0 +1,33 @@
+.modal {
+  margin-top: 15vh
+}
+
+.modal-dialog {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.modal-content {
+  width: 60%;
+  min-width: 350px;
+}
+
+.panel-corrected {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
+a[disabled] {
+  pointer-events: none;
+  border-color: #0070E0;
+  background-color: transparent !important;
+  color: #0070E0;
+  transition: all .2s ease-in-out;
+}

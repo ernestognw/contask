@@ -3,7 +3,7 @@ import {
   ADD_ROW,
   SELECT_CHANGE,
   INPUT_CHANGE,
-  GET_XML,
+  CHECK_EMPTY,
  } 
 from "./action-types";
 
@@ -52,8 +52,8 @@ export function inputChange(value, name, id) {
   }
 }
 
-export function getXML() {
+export function checkEmpty() {
   return {
-    type: GET_XML,
+    type: CHECK_EMPTY,
   }
 }

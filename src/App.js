@@ -25,7 +25,7 @@ class App extends Component {
         this.setState({
           show: false,
         })},
-        3000
+        4000
       )
     }
   }

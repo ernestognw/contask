@@ -40,9 +40,15 @@ const initialState = {
   ],
   accountsList: accountList,
   isBalanced: true,
-  XML_file: '',
   debtTotal: '',
   creditTotal: '',
+  href: '',
+  filename: '',
+  RFC: '',
+  year: '',
+  month: '',
+  typeOfSending: '',
+  validDownload: false,
 };
 
 export default initialState;

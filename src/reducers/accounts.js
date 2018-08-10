@@ -1,128 +1,187 @@
-import { DELETE_ROW, ADD_ROW, SELECT_CHANGE, INPUT_CHANGE, GET_XML } from '../actions/action-types';
+import {
+  DELETE_ROW,
+  ADD_ROW,
+  SELECT_CHANGE,
+  INPUT_CHANGE,
+  CHECK_EMPTY
+} from "../actions/action-types";
 
-function accounts (state = [], action) {
+function accounts(state = [], action) {
   switch (action.type) {
-    case DELETE_ROW:     
-      state.rows.splice(action.payload.row, 1)
+    case DELETE_ROW:
+      state.rows.splice(action.payload.row, 1);
       updateCreditTotal(state);
       updateDebtTotal(state);
       updateAvailableAccounts(state);
-      return{
+      return {
         ...state,
         rows: [...state.rows]
-      }
+      };
 
-    case ADD_ROW: 
+    case ADD_ROW:
       state.rows.push(action.payload.newRow);
       return {
         ...state,
         rows: [...state.rows]
-      }
+      };
 
     case SELECT_CHANGE:
       state.rows[action.payload.id].account = action.payload.value;
 
-      updateCreditTotal(state, action.payload.value === '' ? true : false, action.payload.id);
-      updateDebtTotal(state, action.payload.value === '' ? true : false, action.payload.id);
+      updateCreditTotal(
+        state,
+        action.payload.value === "" ? true : false,
+        action.payload.id
+      );
+      updateDebtTotal(
+        state,
+        action.payload.value === "" ? true : false,
+        action.payload.id
+      );
       updateAvailableAccounts(state);
 
       return {
         ...state,
         rows: [...state.rows],
-        accountsList: [...state.accountsList],
-      }
-
+        accountsList: [...state.accountsList]
+      };
 
     case INPUT_CHANGE:
-      let row = state.rows[action.payload.id];
+      if (action.payload.id) {
+        let row = state.rows[action.payload.id];
 
-      if (action.payload.name === 'initial') {
-        action.payload.value === '' ? row.initial = '' : row.initial = Number(action.payload.value);
-      } 
-
-      if (action.payload.name === 'debt') {
-        action.payload.value === '' ? row.debt = '' : row.debt = Number(action.payload.value);
-        updateDebtTotal(state);
-      } 
-
-      if (action.payload.name === 'credit') {
-        action.payload.value === '' ? row.credit = '' : row.credit = Number(action.payload.value);
-        updateCreditTotal(state);
-      }
-
-      row.final = row.initial + row.debt - row.credit;
-      if (row.final === 0) row.final = '00.00';
-
-      state.rows[action.payload.id] = row;
-
-      return {
-        ...state,
-        rows: [...state.rows],
-        debtTotal: [state.debtTotal],
-        creditTotal: [state.creditTotal],
-        isBalanced: state.isBalanced,
-      }
-
-    case GET_XML:
-      let XMLString='';
-      let isAny = false;
-
-      state.rows.map(row => {
-        if (row.account !== '') {
-          XMLString += `<BCE:Ctas NumCta="${row.account.toString()}" SaldoIni="${row.initial.toString()}" Debe="${row.debt.toString()}" Haber="${row.credit.toString()}" SaldoFin="${row.final.toString()}" />`;
-          isAny = true;
+        if (action.payload.name === "initial") {
+          action.payload.value === ""
+            ? (row.initial = "")
+            : (row.initial = Number(action.payload.value));
         }
-        return true;
-      })
 
-      XMLString+='</BCE:Balanza>'
-      
-      return {
-        ...state,
-        XML_file: XMLString,
-        isAny: isAny,
+        if (action.payload.name === "debt") {
+          action.payload.value === ""
+            ? (row.debt = "")
+            : (row.debt = Number(action.payload.value));
+          updateDebtTotal(state);
+        }
+
+        if (action.payload.name === "credit") {
+          action.payload.value === ""
+            ? (row.credit = "")
+            : (row.credit = Number(action.payload.value));
+          updateCreditTotal(state);
+        }
+
+        row.final = row.initial + row.debt - row.credit;
+        if (row.final === 0) row.final = "00.00";
+
+        state.rows[action.payload.id] = row;
+
+        return {
+          ...state,
+          rows: [...state.rows],
+          debtTotal: [state.debtTotal],
+          creditTotal: [state.creditTotal],
+          isBalanced: state.isBalanced
+        };
+      } else {
+        if (action.payload.name === "RFC") {
+          state.RFC = action.payload.value;
+          console.log(state.RFC);
+        }
+        if (action.payload.name === "year") {
+          state.year = action.payload.value;
+          console.log(state.year);
+        }
+        if (action.payload.name === "month") {
+          state.month = action.payload.value;
+          console.log(state.month);
+        }
+        if (action.payload.name === "typeofsending") {
+          state.typeOfSending = action.payload.value;
+          console.log(state.typeOfSending);
+        }
+
+        if (state.RFC !== "" && state.year !== "" && state.month !== "" && state.typeOfSending !== "") {
+          state.filename = state.RFC + state.year + state.month + "B" + state.typeOfSending + ".xml";
+          state.filename.toString();
+          state.validDownload = true;
+
+          let XMLString = generateXMLString(state);
+          let blob = new Blob([XMLString], { type: "text/plain" });
+          state.href = window.URL.createObjectURL(blob);
+        } else {
+          state.filename = "";
+          state.validDownload = false;
+        }
+
+        return {
+          ...state,
+          RFC: state.RFC,
+          year: state.year,
+          month: state.month,
+          typeOfSending: state.typeOfSending,
+          filename: state.filename,
+          validDownload: state.validDownload,
+          isAny: state.isAny,
+          href: state.href
+        };
       }
 
-    default: 
+    case CHECK_EMPTY:
+      state.isAny = false;
+      state.rows.map(row => {
+        if (row.account !== "") {
+          state.isAny = true;
+        }
+        return true; // This doesn't do anything
+      });
+      return {
+        ...state,
+        isAny: state.isAny,
+      };
+
+    default:
       return state;
-    }
+  }
 }
 
 export default accounts;
 
-
 // Functions
 function updateDebtTotal(state, hasDiscount, discountId) {
   state.debtTotal = 0;
-  for (let i = 0; i < state.rows.length; i++){
-    state.debtTotal += Number(state.rows[i].debt)
+  for (let i = 0; i < state.rows.length; i++) {
+    state.debtTotal += Number(state.rows[i].debt);
   }
 
-  if (hasDiscount){
+  if (hasDiscount) {
     state.debtTotal -= state.rows[discountId].debt;
   }
 
-  if (state.debtTotal === 0) state.debtTotal = '';
-  Number(state.creditTotal) === Number(state.debtTotal) ? state.isBalanced = true : state.isBalanced = false;  
+  if (state.debtTotal === 0) state.debtTotal = "";
+  Number(state.creditTotal) === Number(state.debtTotal)
+    ? (state.isBalanced = true)
+    : (state.isBalanced = false);
 }
 
 function updateCreditTotal(state, hasDiscount, discountId) {
   state.creditTotal = 0;
-  for (let i = 0; i < state.rows.length; i++){
-    state.creditTotal += Number(state.rows[i].credit)
+  for (let i = 0; i < state.rows.length; i++) {
+    state.creditTotal += Number(state.rows[i].credit);
   }
 
-  if (hasDiscount){
+  if (hasDiscount) {
     state.creditTotal -= state.rows[discountId].credit;
   }
 
-  if (state.creditTotal === 0) state.creditTotal = '';
-  Number(state.creditTotal) === Number(state.debtTotal) ? state.isBalanced = true : state.isBalanced = false;  
+  if (state.creditTotal === 0) state.creditTotal = "";
+  Number(state.creditTotal) === Number(state.debtTotal)
+    ? (state.isBalanced = true)
+    : (state.isBalanced = false);
 }
 
-function updateAvailableAccounts(state){
-  for(let listItem = 0; listItem < state.accountsList.length; listItem++) {
-    for (let row = 0; row < state.rows.length; row++){
+function updateAvailableAccounts(state) {
+  for (let listItem = 0; listItem < state.accountsList.length; listItem++) {
+    for (let row = 0; row < state.rows.length; row++) {
       if (state.accountsList[listItem].value === state.rows[row].account) {
         state.accountsList[listItem].selected = true;
         break;
@@ -131,4 +190,22 @@ function updateAvailableAccounts(state){
       }
     }
   }
+}
+
+function generateXMLString(state) {
+  let XMLString = `<?xml version="1.0" encoding="utf-8"?>
+<BCE:Balanza xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd" Version="1.3" RFC="${state.RFC}" Mes="${state.month}" Anio="${state.year}" TipoEnvio="${state.typeOfSending}" xmlns:BCE="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+`;
+
+  state.rows.map(row => {
+    if (row.account !== "") {
+      XMLString += `<BCE:Ctas NumCta="${row.account.toString()}" SaldoIni="${row.initial.toString()}" Debe="${row.debt.toString()}" Haber="${row.credit.toString()}" SaldoFin="${row.final.toString()}" />
+`;
+    }
+    return true;
+  });
+
+  XMLString += "</BCE:Balanza>";
+
+  return XMLString;
 }

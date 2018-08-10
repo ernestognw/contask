@@ -6,6 +6,6 @@ export const SELECT_CHANGE = 'SELECT_CHANGE';
 
 export const INPUT_CHANGE = 'INPUT_CHANGE';
 
-export const GET_XML = 'GET_XML';
+export const CHECK_EMPTY = 'CHECK_EMPTY';
 
 
