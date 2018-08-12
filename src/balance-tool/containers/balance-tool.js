@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
 import { bindActionCreators } from "redux";
 import Accounts from "../components/accounts";
-import SubmitBalance from "../components/submit-balance";
 import XMLModal from "../components/XML-modal";
 
 class BalanceTool extends Component {
@@ -24,7 +23,6 @@ class BalanceTool extends Component {
   }; 
 
   handleInputChange = event => {
-    console.log(event.target.getAttribute('row'))
     this.props.actions.inputChange(
       event.target.value,
       event.target.name,
@@ -38,7 +36,7 @@ class BalanceTool extends Component {
 
   render() {
     return (
-      <div className="page-inner">
+      <div>
         <div className="page-title">
           <h3 className="breadcrumb-header">Balanza de Comprobación</h3>
         </div>
@@ -58,13 +56,10 @@ class BalanceTool extends Component {
               debtTotal={this.props.debtTotal}
               creditTotal={this.props.creditTotal}
               accountsList={this.props.accountsList}
+              handleSubmit={this.handleSubmit}
             />
           </div>
         </div>
-        <SubmitBalance 
-          isBalanced={this.props.isBalanced}
-          handleSubmit={this.handleSubmit}
-        />
         <XMLModal 
           XMLString={this.props.XMLString}
           isAny={this.props.isAny}
@@ -72,6 +67,7 @@ class BalanceTool extends Component {
           filename={this.props.filename}
           handleInputChange={this.handleInputChange}
           validDownload={this.props.validDownload}
+          isComplementary={this.props.isComplementary}
         />
       </div>
     );
@@ -79,8 +75,9 @@ class BalanceTool extends Component {
 }
 
 function mapStateToProps(state, props) {
+  console.log(state.balance)
   return {
-    ...state   
+    ...state.balance
   };
 }
 

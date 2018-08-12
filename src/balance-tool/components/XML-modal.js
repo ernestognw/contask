@@ -86,6 +86,17 @@ function XMLModal(props) {
                           </select>
                         </div>
                       </div>
+                      {
+                        props.isComplementary ?
+                        <div className="form-group">
+                          <label className="col-sm-3 control-label">Fecha de Modificación</label>
+                          <div className="col-sm-9">
+                          <input name="modificationDate" className="form-control" placeholder="Fecha" minLength="12" maxLength="13"/>
+                          </div>
+                        </div> :
+                        <div></div>
+                      }
+                      
                     </form>
                   </div>
               </div>

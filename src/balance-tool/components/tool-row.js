@@ -3,7 +3,7 @@ import Minus from './minus';
 import MoneyInput from './money-input';
 import AccountList from './account-list';
 
-function Registro (props) {
+function ToolRow (props) {
   return (
     <div className="row">
       <div className="col-md-3">
@@ -64,4 +64,4 @@ function Registro (props) {
   )
 }
 
-export default Registro;
+export default ToolRow;

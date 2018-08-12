@@ -49,6 +49,8 @@ const initialState = {
   month: '',
   typeOfSending: '',
   validDownload: false,
+  isComplementary: false,
+  isAny: false,
 };
 
 export default initialState;

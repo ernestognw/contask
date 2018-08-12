@@ -8,4 +8,12 @@ export const INPUT_CHANGE = 'INPUT_CHANGE';
 
 export const CHECK_EMPTY = 'CHECK_EMPTY';
 
+export const LOGIN = 'LOGIN';
+
+export const SIGNUP = 'SIGNUP';
+
+export const VERIFY_USER = 'VERIFY_USER';
+
+
+
 

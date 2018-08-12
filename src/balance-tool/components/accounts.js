@@ -1,9 +1,10 @@
 import React from "react";
 import "./accounts.css";
-import Registro from "./registro";
+import ToolRow from "./tool-row";
 import Plus from "./plus";
 import MoneyInput from "./money-input";
 import InputDescriptions from "./input-descriptions";
+import SubmitBalance from "./submit-balance";
 // import MoneyTotal from "./money-total";
 
 function Accounts(props) {
@@ -14,10 +15,10 @@ function Accounts(props) {
           <h4>{props.title}</h4>
         </div>
         <div className="panel-body">
-        <InputDescriptions />        
+          <InputDescriptions />        
           {props.registros.map((item, index) => {
             return (
-              <Registro
+              <ToolRow
                 value={item.account} //done
                 initial={item.initial} //done
                 debt={item.debt} //done
@@ -54,12 +55,12 @@ function Accounts(props) {
             </div>
             <div className="col-md-2">
               { props.isBalanced ?
-                <div className="alert alert-success notification-adjusted" role="alert">
+                <div className="alert alert-balance alert-success notification-adjusted" role="alert">
                   <i className="fa fa-check"></i>
                   <p>Balanceado</p>                
                 </div>
                 :
-                <div className="alert alert-danger notification-adjusted" role="alert">
+                <div className="alert alert-balance alert-danger notification-adjusted" role="alert">
                   <i className="fa fa-times"></i>
                   <p>Error</p>                
                 </div>
@@ -67,6 +68,10 @@ function Accounts(props) {
             </div>
             <div className="col-md-1"/>
           </div>
+          <SubmitBalance 
+            isBalanced={props.isBalanced}
+            handleSubmit={props.handleSubmit}
+          />
         </div>
       </div>
     </div>

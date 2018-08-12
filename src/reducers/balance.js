@@ -6,7 +6,10 @@ import {
   CHECK_EMPTY
 } from "../actions/action-types";
 
-function accounts(state = [], action) {
+import { firestoreRef } from '../config/firebase';
+import initialState from './initial-state';
+
+function balance(state = initialState, action) {
   switch (action.type) {
     case DELETE_ROW:
       state.rows.splice(action.payload.row, 1);
@@ -85,19 +88,21 @@ function accounts(state = [], action) {
       } else {
         if (action.payload.name === "RFC") {
           state.RFC = action.payload.value;
-          console.log(state.RFC);
         }
         if (action.payload.name === "year") {
           state.year = action.payload.value;
-          console.log(state.year);
         }
         if (action.payload.name === "month") {
           state.month = action.payload.value;
-          console.log(state.month);
         }
         if (action.payload.name === "typeofsending") {
           state.typeOfSending = action.payload.value;
-          console.log(state.typeOfSending);
+        }
+
+        if (state.typeOfSending === 'C') {
+          state.isComplementary = true;
+        } else {
+          state.isComplementary = false;
         }
 
         if (state.RFC !== "" && state.year !== "" && state.month !== "" && state.typeOfSending !== "") {
@@ -108,6 +113,11 @@ function accounts(state = [], action) {
           let XMLString = generateXMLString(state);
           let blob = new Blob([XMLString], { type: "text/plain" });
           state.href = window.URL.createObjectURL(blob);
+
+          firestoreRef.child(`XMLFiles/${state.filename}`).put(blob).then(function(snapshot) {
+            console.log('Uploaded a blob or file!', snapshot);
+          });
+
         } else {
           state.filename = "";
           state.validDownload = false;
@@ -122,7 +132,8 @@ function accounts(state = [], action) {
           filename: state.filename,
           validDownload: state.validDownload,
           isAny: state.isAny,
-          href: state.href
+          href: state.href,
+          isComplementary: state.isComplementary,
         };
       }
 
@@ -144,7 +155,7 @@ function accounts(state = [], action) {
   }
 }
 
-export default accounts;
+export default balance;
 
 // Functions
 function updateDebtTotal(state, hasDiscount, discountId) {

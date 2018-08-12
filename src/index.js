@@ -1,22 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './App.js';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import registerServiceWorker from './registerServiceWorker';
-import reducer from './reducers/accounts';
-import initialState from './reducers/initialState';
+import reducer from './reducers/index.js';
+import initialState from './reducers/initial-state';
+import { BrowserRouter as Router } from "react-router-dom";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 const store = createStore(
   reducer,
-  initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(
+    applyMiddleware(
+      thunk
+    )
+  )
 );
 
 render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>, 
   document.getElementById('root'));
   registerServiceWorker();

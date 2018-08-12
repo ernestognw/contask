@@ -192,7 +192,7 @@ function Header(props) {
                     <a href="/">Account Settings</a>
                   </li>
                   <li>
-                    <a href="/">Log Out</a>
+                    <a onClick={props.signOut}>Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -201,9 +201,9 @@ function Header(props) {
         </div>
       </nav>
       {
-        <div className={!props.show ? 'alert alert-warning alert-dismissible fade' : 'alert alert-warning alert-dismissible fade in'} role="alert">
+        <div className={!props.showNotif ? 'alert alert-warning alert-dismissible fade' : 'alert alert-warning alert-dismissible fade in'} role="alert">
         <button
-          onClick={props.showNotif}
+          onClick={props.notifHandler}
           type="button"
           className="close"
           action="close"

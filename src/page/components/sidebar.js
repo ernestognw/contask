@@ -1,5 +1,6 @@
 import React from "react";
 import './sidebar.css';
+import { Link } from "react-router-dom";
 
 function Navbar(props) {
   return (
@@ -13,14 +14,19 @@ function Navbar(props) {
         <div className="page-sidebar-menu">
             <ul className="accordion-menu">
                 <li className="active-page open">
-                    <a href="/">
+                    <Link to="/">
                         <i className="menu-icon fa fa-clone"></i><span>Balanza</span>
+                    </Link>
+                </li>
+                <li>
+                    <a onClick={props.notifHandler}>
+                        <i className="menu-icon fa fa-list"></i><span>Listado de Cuentas</span>
                     </a>
                 </li>
                 <li>
-                    <a onClick={props.showNotif}>
-                        <i className="menu-icon fa fa-list"></i><span>Listado de Cuentas</span>
-                    </a>
+                    <Link to="/auth">
+                        <i className="menu-icon fa fa-user"></i><span>Inicia sesión</span>
+                    </Link>
                 </li>
             </ul>
         </div>

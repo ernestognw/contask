@@ -1,52 +1,47 @@
-import React, { Component } from "react";
-import "./App.css";
+import React, { Component } from 'react';
+import { Route, Switch, Redirect } from "react-router-dom";
 
-import Sidebar from "./page/components/sidebar";
-import AppLayout from "./page/components/app-layout";
-import ContentLayout from "./page/components/content-layout";
-import Header from "./header";
-import BalanceTool from "./balance-tool/containers/balance-tool";
+import webApp from './page/containers/webApp'
+import Auth from './auth/containers/auth';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import * as actions from "./actions/actions";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class App extends Component {
-  state = {
-    show: false,
+  constructor (props) {
+    super(props)
   }
 
-  showNotif = event => {
-    if(event.target.getAttribute('action') === 'close'){
-      this.setState({
-        show: false,
-      })
-    } else {
-      this.setState({
-        show: true,
-      })
-      setTimeout(() => {
-        this.setState({
-          show: false,
-        })},
-        4000
-      )
-    }
+  componentDidMount () {
+    this.props.actions.verifyUserAsync();      
   }
 
-  render() {
+  render(){
     return (
-      <AppLayout>
-        <Sidebar 
-          title="Contabilidad Electrónica"
-          showNotif={this.showNotif}          
-        />
-        <ContentLayout>
-          <Header 
-            show={this.state.show}
-            showNotif={this.showNotif}
-          />
-          <BalanceTool />
-        </ContentLayout>
-      </AppLayout>
-    );
+      <Switch>
+        <Route path="/auth/" component={Auth} />
+        <Route path="/" exact component={webApp} />
+        <Redirect to="/auth/"/>
+        <Route component={() => <h1>Cargando...</h1>} />
+      </Switch>
+    )
   }
 }
 
-export default App;
+function mapStateToProps(state, props) {
+  return {
+    ...state.auth
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App); 
