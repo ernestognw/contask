@@ -1,33 +1,22 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from "react-router-dom";
-
-import webApp from './page/containers/webApp'
-import Auth from './auth/containers/auth';
-
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { withRouter} from "react-router-dom";
 
 import * as actions from "./actions/actions";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import MainRouter from './page/containers/main-router';
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
-    this.props.actions.verifyUserAsync();      
+    this.props.actions.verifyUserAsync();   
   }
 
   render(){
     return (
-      <Switch>
-        <Route path="/auth/" component={Auth} />
-        <Route path="/" exact component={webApp} />
-        <Redirect to="/auth/"/>
-        <Route component={() => <h1>Cargando...</h1>} />
-      </Switch>
+      <MainRouter 
+        currentUser={this.props.currentUser}
+        authenticating={this.props.authenticating}
+      />
     )
   }
 }
@@ -44,4 +33,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App); 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

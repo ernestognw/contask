@@ -10,50 +10,62 @@ import * as actions from "../../actions/actions";
 import { bindActionCreators } from 'redux';
 
 class Auth extends Component {
-  state = {
-    username: '',
-    email: '',
-    password: '',
-  }
-
-  usernameChange = event => {
-    this.setState({
-      username: event.target.value
-    })
-  }
-
-  emailChange = event => {
-    this.setState({
-      email: event.target.value
-    })
-  }
-
-  passwordChange = event => {
-    this.setState({
-      password: event.target.value
-    }) 
+  authInputChange = event => {
+    this.props.actions.authInputChange(event.target.id, event.target.value);
   }
 
   handleSignup = event => {
     event.preventDefault();
-    this.props.actions.handleSignup(this.state.username, this.state.email, this.state.password);
-    this.props.history.push('/')
+    if (this.props.arePasswordsEqual){
+      this.props.actions.handleSignupAsync(this.props.username, this.props.email, this.props.password);
+      this.props.history.push('/')
+    } else {
+      this.props.actions.equalPasswordsRequired()
+    }
   };
+
+  handleLogin = event => {
+    event.preventDefault();
+    this.props.actions.handleLoginAsync(this.props.email, this.props.password);
+  }
+
+  handleFBLogin = event => {
+    this.props.actions.handleFBLoginAsync();
+  }
+
+  componentDidUpdate() {
+    if(this.props.redirectFromLogin) { 
+      this.props.history.push('/')
+    } 
+  }
 
   render() {
     return (
       <AuthLayout>
         <Switch>
-          <Route path="/auth/login" component={AuthLogin} />
+          <Route path="/auth/login" render={props => (
+            <AuthLogin 
+              handleLogin={this.handleLogin}
+              handleFBLogin={this.handleFBLogin}
+              authInputChange={this.authInputChange}
+
+              email={this.props.email}
+              password={this.props.password}
+            />
+            )} />
           <Route path="/auth/signup" render={props => (
             <AuthSignup 
               handleSignup={this.handleSignup}
-              emailChange={this.emailChange}
-              passwordChange={this.passwordChange}
-              usernameChange={this.usernameChange}
-              email={this.state.email}
-              password={this.state.password}
-              username={this.state.username}              
+              handleFBLogin={this.handleFBLogin}              
+              authInputChange={this.authInputChange}
+
+              email={this.props.email}
+              password={this.props.password}
+              username={this.props.username}
+              verifyPassword={this.props.verifyPassword}
+              isVerifyPasswordInput={this.props.isVerifyPasswordInput} 
+              arePasswordsEqual={this.props.arePasswordsEqual}
+              message={this.props.passwordsNotEqualMessage}             
             />
           )} />
           <Route component={() => <Redirect to="/auth/login"/>}/>                  
@@ -63,10 +75,16 @@ class Auth extends Component {
   }
 }
 
+function mapStateToProps(state, props) {
+  return {
+    ...state.auth
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch)
   };
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

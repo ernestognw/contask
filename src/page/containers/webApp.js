@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-
 import "./webApp.css";
 
 import Sidebar from "../components/sidebar";
@@ -8,9 +6,9 @@ import ContentLayout from "../components/content-layout";
 import Header from "../components/header";
 import BalanceTool from "../../balance-tool/containers/balance-tool";
 import AppLayout from "../components/app-layout";
-
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/actions';
+import { bindActionCreators } from 'redux';
 
 class App extends Component {
   state = {
@@ -19,7 +17,7 @@ class App extends Component {
   };
 
   signOut = event => {
-    firebase.auth().signOut()
+    this.props.actions.handleSignout();
   }
 
   notifHandler = event => {
@@ -40,10 +38,6 @@ class App extends Component {
     }
   };
 
-  auth = () => {
-    console.log(this.state.authUser)
-  }
-
   render() {
     return(
       <AppLayout>
@@ -52,13 +46,24 @@ class App extends Component {
           notifHandler={this.notifHandler}
         />
         <ContentLayout>
-          <Header signOut={this.signOut} showNotif={this.state.showNotif} notifHandler={this.notifHandler} />
+          <Header photoURL={this.props.currentUser.photoURL} signOut={this.signOut} showNotif={this.state.showNotif} notifHandler={this.notifHandler} />
           <BalanceTool />
-          <button onClick={this.auth} className="btn btn-primary">Press</button>
         </ContentLayout>
       </AppLayout>
     )
   } 
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+function mapStateToProps(state, props) {
+  return {
+    ...state.auth
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function AuthLogin () {
+function AuthLogin (props) {
   return (
     <div className="panel panel-auth col-md-4 panel-white">
       <div className="panel-heading clearfix">
         <h6>Inicia sesión con:</h6>
-        <button className="btn btn-neutral btn-login btn-icon mr-3">
+        <button onClick={props.handleFBLogin} className="btn btn-neutral btn-login btn-icon">
           <i className="fa fa-facebook" /> Facebook
         </button>
-        <button className="btn btn-neutral btn-login btn-icon">
+        {/* <button className="btn btn-neutral btn-login btn-icon">
           <i className="fa fa-google" /> Google
-        </button>
+        </button> */}
       </div>
       <div className="panel-body">
         <form className="form-signin">
@@ -24,7 +24,9 @@ function AuthLogin () {
             </span>
             <input
               type="email"
-              id="inputEmail"
+              onChange={props.authInputChange}
+              value={props.email}              
+              id="emailInput"
               className="form-control form-control-adjust"
               placeholder="Correo"
               required
@@ -36,13 +38,15 @@ function AuthLogin () {
             </span>
             <input
               type="password"
-              id="inputPassword"
+              onChange={props.authInputChange}
+              value={props.password}
+              id="passwordInput"
               className="form-control form-control-adjust"
               placeholder="Contraseña"
               required
             />
           </div>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">
+          <button onClick={props.handleLogin} className="btn btn-lg btn-primary btn-block" type="submit">
             Iniciar sesión
           </button>
           <Link to="/auth/signup">

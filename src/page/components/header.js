@@ -4,7 +4,7 @@ import "./header.css";
 function Header(props) {
   return (
     <div className="page-header">
-      <div className="search-form">
+      {/* <div className="search-form">
         <form action="/" method="GET">
           <div className="input-group">
             <input
@@ -24,7 +24,7 @@ function Header(props) {
             </span>
           </div>
         </form>
-      </div>
+      </div> */}
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
@@ -33,13 +33,13 @@ function Header(props) {
                 <i className="fa fa-bars" />
               </a>
               <a className="logo-box" href="index.html">
-                <img className="logo-image" src="images/isotype.png" alt="isotype" />
+                <img className="logo-image" src="images/isotype.svg" alt="isotype" />
                 <span>
-                  <img className="logo-image" src="images/logotype.png" alt="logotype" />
+                  <img className="logo-image" src="images/logotype.svg" alt="logotype" />
                 </span>
               </a>
             </div>
-            <button
+            {/* <button
               type="button"
               className="navbar-toggle collapsed"
               data-toggle="collapse"
@@ -47,15 +47,12 @@ function Header(props) {
               aria-expanded="false"
             >
               <i className="fa fa-angle-down" />
-            </button>
+            </button> */}
           </div>
 
-          <div
-            className="collapse navbar-collapse"
-            id="bs-example-navbar-collapse-1"
-          >
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li>
+              {/* <li>
                 <a
                   id="collapsed-sidebar-toggle-button"
                 >
@@ -71,10 +68,10 @@ function Header(props) {
                 <a id="search-button">
                   <i className="fa fa-search" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li>
+              {/* <li>
                 <a
                   className="right-sidebar-toggle"
                   data-sidebar-id="main-right-sidebar"
@@ -157,9 +154,9 @@ function Header(props) {
                     </li>
                     <div className="slimScrollBar" />
                     <div className="slimScrollRail" />
-                  </div>
+                  </div> 
                 </ul>
-              </li>
+              </li> */}
               <li className="dropdown user-dropdown">
                 <a
                   href="/"
@@ -170,13 +167,13 @@ function Header(props) {
                   aria-expanded="false"
                 >
                   <img
-                    src="http://via.placeholder.com/36x36"
+                    src={props.photoURL ? props.photoURL : "http://via.placeholder.com/36x36"}
                     alt=""
                     className="img-circle"
                   />
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
+                  {/* <li>
                     <a href="/">Profile</a>
                   </li>
                   <li>
@@ -190,7 +187,7 @@ function Header(props) {
                   <li role="separator" className="divider" />
                   <li>
                     <a href="/">Account Settings</a>
-                  </li>
+                  </li> */}
                   <li>
                     <a onClick={props.signOut}>Log Out</a>
                   </li>

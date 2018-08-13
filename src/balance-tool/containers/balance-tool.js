@@ -34,6 +34,10 @@ class BalanceTool extends Component {
     this.props.actions.checkEmpty();
   };
 
+  handleUploadXMLFile = event => {
+    this.props.actions.handleUploadXMLFile(this.props.currentUser.uid);
+  }
+
   render() {
     return (
       <div>
@@ -68,6 +72,8 @@ class BalanceTool extends Component {
           handleInputChange={this.handleInputChange}
           validDownload={this.props.validDownload}
           isComplementary={this.props.isComplementary}
+          handleUploadXMLFile={this.handleUploadXMLFile}
+          currentUser={this.props.currentUser}
         />
       </div>
     );
@@ -75,9 +81,9 @@ class BalanceTool extends Component {
 }
 
 function mapStateToProps(state, props) {
-  console.log(state.balance)
   return {
-    ...state.balance
+    ...state.balance,
+    currentUser: state.auth.currentUser
   };
 }
 

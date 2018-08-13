@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers/index.js';
-import initialState from './reducers/initial-state';
 import { BrowserRouter as Router } from "react-router-dom";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';

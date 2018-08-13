@@ -13,4 +13,6 @@ var config = {
 
 firebase.initializeApp(config);
 
+export const FBProvider = new firebase.auth.FacebookAuthProvider();
+
 export const firestoreRef = firebase.storage().ref();

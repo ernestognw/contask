@@ -23,11 +23,6 @@ function Navbar(props) {
                         <i className="menu-icon fa fa-list"></i><span>Listado de Cuentas</span>
                     </a>
                 </li>
-                <li>
-                    <Link to="/auth">
-                        <i className="menu-icon fa fa-user"></i><span>Inicia sesión</span>
-                    </Link>
-                </li>
             </ul>
         </div>
       </div>

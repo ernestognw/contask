@@ -4,7 +4,7 @@ import './XML-modal.css';
 let years = [];
 let months = [];
 
-for (let i = 2018; i <= 2099; i++) {
+for (let i = 2018; i <= 2030; i++) {
   years.push(i.toString())
 }
 
@@ -107,7 +107,7 @@ function XMLModal(props) {
             {
               props.isAny ?
               <div className="modal-footer"> 
-                <a disabled={!props.validDownload} type="button" className="btn btn-primary" href={props.href} download={props.filename}>
+                <a disabled={!props.validDownload} onClick={props.handleUploadXMLFile} type="button" className="btn btn-primary" href={props.href} download={props.filename}>
                   Descargar
                 </a>
                 <button type="button" className="btn btn-warning" data-dismiss="modal">

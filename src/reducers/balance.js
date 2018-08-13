@@ -3,7 +3,8 @@ import {
   ADD_ROW,
   SELECT_CHANGE,
   INPUT_CHANGE,
-  CHECK_EMPTY
+  CHECK_EMPTY,
+  UPLOAD_XML_FILE
 } from "../actions/action-types";
 
 import { firestoreRef } from '../config/firebase';
@@ -110,14 +111,6 @@ function balance(state = initialState, action) {
           state.filename.toString();
           state.validDownload = true;
 
-          let XMLString = generateXMLString(state);
-          let blob = new Blob([XMLString], { type: "text/plain" });
-          state.href = window.URL.createObjectURL(blob);
-
-          firestoreRef.child(`XMLFiles/${state.filename}`).put(blob).then(function(snapshot) {
-            console.log('Uploaded a blob or file!', snapshot);
-          });
-
         } else {
           state.filename = "";
           state.validDownload = false;
@@ -149,6 +142,20 @@ function balance(state = initialState, action) {
         ...state,
         isAny: state.isAny,
       };
+    
+    case UPLOAD_XML_FILE:
+      console.log(state)
+      let XMLString = generateXMLString(state);
+      let blob = new Blob([XMLString], { type: "text/plain" });
+      state.href = window.URL.createObjectURL(blob);
+
+      firestoreRef.child(`BalanzasComprobación/${action.payload.uid}/${state.filename}`).put(blob).then(function(snapshot) {
+        console.log('Uploaded a blob or file!', snapshot);
+      });
+
+      return {
+        ...state
+      }
 
     default:
       return state;
