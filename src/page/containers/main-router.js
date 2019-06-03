@@ -19,8 +19,9 @@ function MainRouter (props) {
 
   return (
     <Switch>
-      <Route path="/auth" component={Auth} />      
-      <PrivateRoute path='/' exact component={webApp} />       
+      <Route path="/auth" component={Auth} /> 
+      <Route path="/auth" component={Auth} />                 
+      <PrivateRoute path='/' exact component={webApp} />
       <Route component={() => <h1>Error 404</h1>} />
     </Switch>
   );

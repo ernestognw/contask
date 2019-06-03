@@ -4,7 +4,7 @@ import "./header.css";
 function Header(props) {
   return (
     <div className="page-header">
-      {/* <div className="search-form">
+      <div className="search-form">
         <form action="/" method="GET">
           <div className="input-group">
             <input
@@ -19,12 +19,12 @@ function Header(props) {
                 id="close-search"
                 type="button"
               >
-                <i className="icon-close" />
+              <i className="icon-close" />
               </button>
             </span>
           </div>
         </form>
-      </div> */}
+      </div>
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
@@ -52,14 +52,14 @@ function Header(props) {
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              {/* <li>
+              <li>
                 <a
                   id="collapsed-sidebar-toggle-button"
                 >
                   <i className="fa fa-bars" />
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a id="toggle-fullscreen">
                   <i className="fa fa-expand" />
                 </a>

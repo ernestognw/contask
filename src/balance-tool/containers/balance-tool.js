@@ -40,7 +40,7 @@ class BalanceTool extends Component {
 
   render() {
     return (
-      <div>
+      <div className="page-inner">      
         <div className="page-title">
           <h3 className="breadcrumb-header">Balanza de Comprobación</h3>
         </div>

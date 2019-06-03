@@ -16,6 +16,10 @@ class App extends Component {
     authUser: null,
   };
 
+  componentDidMount(){
+    window.initDashboardAnimations();
+  }
+
   signOut = event => {
     this.props.actions.handleSignout();
   }
@@ -46,7 +50,7 @@ class App extends Component {
           notifHandler={this.notifHandler}
         />
         <ContentLayout>
-          <Header photoURL={this.props.currentUser.photoURL} signOut={this.signOut} showNotif={this.state.showNotif} notifHandler={this.notifHandler} />
+          <Header  photoURL={this.props.currentUser.photoURL} signOut={this.signOut} showNotif={this.state.showNotif} notifHandler={this.notifHandler} />
           <BalanceTool />
         </ContentLayout>
       </AppLayout>
